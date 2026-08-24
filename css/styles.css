@@ -260,7 +260,9 @@ h1,
 }
 
 h1 {
-  font-size: clamp(3.4rem, 9vw, 7.4rem);
+  font-size: clamp(2.2rem, 5.8vw, 4.2rem);
+  max-width: 13ch;
+  line-height: 1.05;
 }
 
 .screen h2 {
@@ -275,6 +277,10 @@ h1 {
   font-size: clamp(1rem, 1.5vw, 1.18rem);
   line-height: 1.55;
   color: var(--muted);
+}
+
+.screen--hero .lead {
+  max-width: 44ch;
 }
 
 .btn {
@@ -306,79 +312,6 @@ h1 {
   background: transparent;
   border: 1px solid rgba(246, 239, 230, 0.45);
   box-shadow: none;
-}
-
-.carousel {
-  margin: 0 0 1.8rem;
-  max-width: 22rem;
-}
-
-.carousel-label {
-  margin: 0 0 0.55rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(246, 239, 230, 0.62);
-}
-
-.carousel-viewport {
-  position: relative;
-  min-height: 6.4rem;
-}
-
-.carousel-card {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-  opacity: 0;
-  transform: translateY(10px);
-  pointer-events: none;
-  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
-}
-
-.carousel-card.is-active {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
-}
-
-.carousel-card span {
-  display: block;
-  margin-bottom: 0.15rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.16em;
-  color: var(--sage);
-}
-
-.carousel-title {
-  margin: 0 0 0.2rem;
-  font-family: var(--font-serif);
-  font-size: clamp(1.55rem, 3vw, 2.05rem);
-  font-weight: 600;
-  color: var(--cream);
-}
-
-.carousel-card p:last-child {
-  margin: 0;
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
-.carousel-progress {
-  display: flex;
-  gap: 0.4rem;
-  margin-top: 0.9rem;
-}
-
-.carousel-progress i {
-  display: block;
-  width: 1.7rem;
-  height: 2px;
-  background: rgba(246, 239, 230, 0.28);
-}
-
-.carousel-progress i.is-active {
-  background: var(--cream);
 }
 
 .scroll-hint {
@@ -455,7 +388,8 @@ h1 {
   }
 
   h1 {
-    font-size: clamp(3rem, 16vw, 4.4rem);
+    font-size: clamp(2rem, 9vw, 2.85rem);
+    max-width: none;
   }
 
   .dots {
@@ -487,17 +421,5 @@ h1 {
     height: auto;
     min-height: 100dvh;
     scroll-snap-align: none;
-  }
-
-  .carousel-card {
-    position: relative;
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
-    margin-bottom: 0.8rem;
-  }
-
-  .carousel-viewport {
-    min-height: 0;
   }
 }

@@ -130,36 +130,4 @@
   );
 
   sections.forEach((section) => observer.observe(section));
-
-  const carousel = document.querySelector("[data-carousel]");
-  if (!carousel) return;
-
-  const cards = [...carousel.querySelectorAll(".carousel-card")];
-  const pips = [...carousel.querySelectorAll(".carousel-progress i")];
-  let slide = 0;
-  let timer;
-
-  const showSlide = (next) => {
-    slide = (next + cards.length) % cards.length;
-    cards.forEach((card, i) => card.classList.toggle("is-active", i === slide));
-    pips.forEach((pip, i) => pip.classList.toggle("is-active", i === slide));
-  };
-
-  showSlide(0);
-
-  const start = () => {
-    if (reduced || cards.length < 2) return;
-    stop();
-    timer = window.setInterval(() => showSlide(slide + 1), 4000);
-  };
-
-  const stop = () => {
-    if (timer) window.clearInterval(timer);
-  };
-
-  carousel.addEventListener("mouseenter", stop);
-  carousel.addEventListener("mouseleave", start);
-  carousel.addEventListener("focusin", stop);
-  carousel.addEventListener("focusout", start);
-  start();
 })();
