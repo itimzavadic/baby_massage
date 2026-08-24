@@ -21,7 +21,9 @@
 html,
 body {
   height: 100%;
+  height: 100dvh;
   margin: 0;
+  overflow: hidden;
   overscroll-behavior: none;
 }
 
@@ -30,11 +32,13 @@ html {
 }
 
 body {
+  position: fixed;
+  inset: 0;
+  width: 100%;
   font-family: var(--font-sans);
   font-weight: 400;
   color: var(--milk);
   background: var(--charcoal);
-  overflow: hidden;
 }
 
 img {
@@ -155,7 +159,7 @@ a {
   overflow-y: auto;
   overflow-x: hidden;
   scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   overscroll-behavior: none;
   scrollbar-width: none;
   -ms-overflow-style: none;

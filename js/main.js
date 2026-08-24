@@ -13,8 +13,6 @@
   let ticking = false;
   let unlockTimer = 0;
 
-  const clamp = (value) => Math.max(0, Math.min(sections.length - 1, value));
-
   const setActive = (next) => {
     index = next;
     dots.forEach((dot, i) => {
@@ -45,12 +43,7 @@
   };
 
   const goTo = (next) => {
-    next = clamp(next);
-    if (next === index) {
-      const top = sections[next].offsetTop;
-      if (Math.abs(scroller.scrollTop - top) >= 8) scroller.scrollTop = top;
-      return;
-    }
+    if (next < 0 || next >= sections.length || next === index) return;
     locked = true;
     setActive(next);
     window.clearTimeout(unlockTimer);
@@ -112,11 +105,10 @@
     scroller.addEventListener(
       "wheel",
       (event) => {
-        if (Math.abs(event.deltaY) < 10) return;
-        if (!sectionAtEdge(event.deltaY)) return;
         const dir = event.deltaY > 0 ? 1 : -1;
+        if (!sectionAtEdge(event.deltaY)) return;
         event.preventDefault();
-        if (locked || !canMove(dir)) return;
+        if (Math.abs(event.deltaY) < 10 || locked || !canMove(dir)) return;
         goTo(index + dir);
       },
       { passive: false }
@@ -134,8 +126,13 @@
       "touchmove",
       (event) => {
         const delta = touchStartY - event.touches[0].clientY;
-        if (Math.abs(delta) < 10) return;
+        if (Math.abs(delta) < 4) return;
+        const dir = delta > 0 ? 1 : -1;
         if (!sectionAtEdge(delta)) return;
+        if (!canMove(dir) || locked) {
+          event.preventDefault();
+          return;
+        }
         event.preventDefault();
       },
       { passive: false }
@@ -167,10 +164,10 @@
     const up = ["ArrowUp", "PageUp"].includes(event.key);
     if (down) {
       event.preventDefault();
-      goTo(index + 1);
+      if (canMove(1)) goTo(index + 1);
     } else if (up) {
       event.preventDefault();
-      goTo(index - 1);
+      if (canMove(-1)) goTo(index - 1);
     } else if (event.key === "Home") {
       event.preventDefault();
       goTo(0);
