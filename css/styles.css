@@ -191,7 +191,27 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center 28%;
+}
+
+.screen--hero .screen-bg img {
+  object-position: 58% 18%;
+}
+
+#massage .screen-bg img {
+  object-position: center 32%;
+}
+
+#speech .screen-bg img {
+  object-position: center 18%;
+}
+
+#swim .screen-bg img {
+  object-position: 42% 22%;
+}
+
+#lactation .screen-bg img {
+  object-position: center 38%;
 }
 
 .screen-bg::after {
