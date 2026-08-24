@@ -245,7 +245,7 @@ a {
 }
 
 .screen--hero .screen-inner {
-  padding: calc(var(--header-h) + 14vh) 0 5.5rem clamp(1.2rem, 4vw, 4.5rem);
+  padding: calc(var(--header-h) + 24vh) 0 5.5rem clamp(1.2rem, 4vw, 4.5rem);
 }
 
 .eyebrow {
@@ -403,7 +403,7 @@ h1 {
   }
 
   .screen--hero .screen-inner {
-    padding: calc(var(--header-h) + 11vh) 1.15rem 4.6rem 1.15rem;
+    padding: calc(var(--header-h) + 20vh) 1.15rem 4.6rem 1.15rem;
   }
 
   h1 {
