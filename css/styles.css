@@ -22,6 +22,7 @@ html,
 body {
   height: 100%;
   margin: 0;
+  overscroll-behavior: none;
 }
 
 html {
@@ -155,7 +156,7 @@ a {
   overflow-x: hidden;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  overscroll-behavior-y: contain;
+  overscroll-behavior: none;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -178,7 +179,7 @@ a {
   scroll-snap-align: start;
   scroll-snap-stop: always;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .screen-bg {

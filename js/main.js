@@ -46,8 +46,11 @@
 
   const goTo = (next) => {
     next = clamp(next);
-    const offset = Math.abs(scroller.scrollTop - sections[next].offsetTop);
-    if (next === index && offset < 8) return;
+    if (next === index) {
+      const top = sections[next].offsetTop;
+      if (Math.abs(scroller.scrollTop - top) >= 8) scroller.scrollTop = top;
+      return;
+    }
     locked = true;
     setActive(next);
     window.clearTimeout(unlockTimer);
@@ -71,6 +74,11 @@
     }
   };
 
+  const canMove = (dir) => {
+    const next = index + dir;
+    return next >= 0 && next < sections.length;
+  };
+
   const sectionAtEdge = (delta) => {
     const current = sections[index];
     if (current.scrollHeight <= current.clientHeight + 2) return true;
@@ -80,9 +88,16 @@
     return delta > 0 ? atBottom : atTop;
   };
 
+  const clampScroll = () => {
+    const max = sections[sections.length - 1].offsetTop;
+    if (scroller.scrollTop > max) scroller.scrollTop = max;
+    if (scroller.scrollTop < 0) scroller.scrollTop = 0;
+  };
+
   scroller.addEventListener(
     "scroll",
     () => {
+      clampScroll();
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(() => {
@@ -99,9 +114,10 @@
       (event) => {
         if (Math.abs(event.deltaY) < 10) return;
         if (!sectionAtEdge(event.deltaY)) return;
+        const dir = event.deltaY > 0 ? 1 : -1;
         event.preventDefault();
-        if (locked) return;
-        goTo(index + (event.deltaY > 0 ? 1 : -1));
+        if (locked || !canMove(dir)) return;
+        goTo(index + dir);
       },
       { passive: false }
     );
@@ -115,12 +131,25 @@
     );
 
     scroller.addEventListener(
+      "touchmove",
+      (event) => {
+        const delta = touchStartY - event.touches[0].clientY;
+        if (Math.abs(delta) < 10) return;
+        if (!sectionAtEdge(delta)) return;
+        event.preventDefault();
+      },
+      { passive: false }
+    );
+
+    scroller.addEventListener(
       "touchend",
       (event) => {
         const delta = touchStartY - event.changedTouches[0].clientY;
         if (Math.abs(delta) < 42 || locked) return;
         if (!sectionAtEdge(delta)) return;
-        goTo(index + (delta > 0 ? 1 : -1));
+        const dir = delta > 0 ? 1 : -1;
+        if (!canMove(dir)) return;
+        goTo(index + dir);
       },
       { passive: true }
     );
