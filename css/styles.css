@@ -181,10 +181,6 @@ a {
   overflow-y: auto;
 }
 
-.screen--hero {
-  align-items: flex-start;
-}
-
 .screen-bg {
   position: absolute;
   inset: 0;
@@ -242,10 +238,6 @@ a {
 .screen-inner {
   width: min(38rem, calc(100% - 4.5rem));
   padding: 0 0 5.5rem clamp(1.2rem, 4vw, 4.5rem);
-}
-
-.screen--hero .screen-inner {
-  padding: calc(var(--header-h) + 24vh) 0 5.5rem clamp(1.2rem, 4vw, 4.5rem);
 }
 
 .eyebrow {
@@ -393,17 +385,9 @@ h1 {
     align-items: flex-end;
   }
 
-  .screen--hero {
-    align-items: flex-start;
-  }
-
   .screen-inner {
     width: calc(100% - 2.6rem);
     padding: calc(var(--header-h) + 1rem) 1.15rem 4.6rem 1.15rem;
-  }
-
-  .screen--hero .screen-inner {
-    padding: calc(var(--header-h) + 20vh) 1.15rem 4.6rem 1.15rem;
   }
 
   h1 {
