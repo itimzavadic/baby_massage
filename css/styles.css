@@ -204,9 +204,9 @@ a {
 }
 
 #speech .screen-bg img {
-  object-position: 88% 28%;
-  transform: scale(1.55);
-  transform-origin: 88% 28%;
+  object-position: 78% 26%;
+  transform: scale(1.28);
+  transform-origin: 78% 26%;
 }
 
 #swim .screen-bg img {
