@@ -214,6 +214,10 @@ a {
   object-position: center 38%;
 }
 
+#contacts .screen-bg img {
+  object-position: center 20%;
+}
+
 .screen-bg::after {
   content: "";
   position: absolute;
@@ -266,6 +270,10 @@ h1 {
 .screen h2 {
   font-size: clamp(2.3rem, 5.4vw, 4.4rem);
   max-width: 14ch;
+}
+
+.screen--contacts h2 {
+  max-width: 12ch;
 }
 
 .lead,
@@ -356,24 +364,9 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
-  margin: 0 0 1.2rem;
+  margin: 0;
   padding: 0;
   list-style: none;
-}
-
-.formats {
-  margin: 0 0 1.4rem;
-  font-size: 0.88rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--sage);
-}
-
-.disclaimer {
-  max-width: 42ch;
-  font-size: 0.82rem;
-  line-height: 1.5;
-  color: rgba(246, 239, 230, 0.58);
 }
 
 @media (max-width: 720px) {
