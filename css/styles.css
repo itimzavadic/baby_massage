@@ -260,9 +260,7 @@ h1,
 }
 
 h1 {
-  font-size: clamp(2.2rem, 5.8vw, 4.2rem);
-  max-width: 13ch;
-  line-height: 1.05;
+  font-size: clamp(3.4rem, 9vw, 7.4rem);
 }
 
 .screen h2 {
@@ -388,8 +386,7 @@ h1 {
   }
 
   h1 {
-    font-size: clamp(2rem, 9vw, 2.85rem);
-    max-width: none;
+    font-size: clamp(3rem, 16vw, 4.4rem);
   }
 
   .dots {
