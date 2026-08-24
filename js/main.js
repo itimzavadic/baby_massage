@@ -10,6 +10,8 @@
   let index = 0;
   let locked = false;
   let touchStartY = 0;
+  let ticking = false;
+  let unlockTimer = 0;
 
   const clamp = (value) => Math.max(0, Math.min(sections.length - 1, value));
 
@@ -23,18 +25,50 @@
     });
   };
 
+  const sectionFromScroll = () => {
+    const y = scroller.scrollTop + scroller.clientHeight * 0.45;
+    let best = 0;
+    sections.forEach((section, i) => {
+      if (section.offsetTop <= y) best = i;
+    });
+    return best;
+  };
+
+  const syncDots = () => {
+    setActive(sectionFromScroll());
+  };
+
+  const unlock = () => {
+    window.clearTimeout(unlockTimer);
+    locked = false;
+    syncDots();
+  };
+
   const goTo = (next) => {
     next = clamp(next);
-    if (next === index) return;
+    const offset = Math.abs(scroller.scrollTop - sections[next].offsetTop);
+    if (next === index && offset < 8) return;
     locked = true;
     setActive(next);
+    window.clearTimeout(unlockTimer);
+
     sections[next].scrollIntoView({
       behavior: reduced ? "auto" : "smooth",
       block: "start",
     });
-    window.setTimeout(() => {
-      locked = false;
-    }, lockMs);
+
+    const finish = () => {
+      if (!locked) return;
+      scroller.removeEventListener("scrollend", finish);
+      unlock();
+    };
+
+    if (!reduced && "onscrollend" in window) {
+      scroller.addEventListener("scrollend", finish, { once: true });
+      unlockTimer = window.setTimeout(finish, 1400);
+    } else {
+      unlockTimer = window.setTimeout(finish, reduced ? 50 : lockMs);
+    }
   };
 
   const sectionAtEdge = (delta) => {
@@ -45,6 +79,19 @@
       current.scrollTop + current.clientHeight >= current.scrollHeight - 2;
     return delta > 0 ? atBottom : atTop;
   };
+
+  scroller.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        if (!locked) syncDots();
+      });
+    },
+    { passive: true }
+  );
 
   if (!reduced) {
     scroller.addEventListener(
@@ -118,16 +165,5 @@
     });
   });
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting || locked) return;
-        const next = sections.indexOf(entry.target);
-        if (next >= 0) setActive(next);
-      });
-    },
-    { root: reduced ? null : scroller, threshold: 0.55 }
-  );
-
-  sections.forEach((section) => observer.observe(section));
+  syncDots();
 })();
