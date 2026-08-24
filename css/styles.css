@@ -185,6 +185,7 @@ a {
   position: absolute;
   inset: 0;
   z-index: -1;
+  overflow: hidden;
 }
 
 .screen-bg img {
@@ -203,7 +204,9 @@ a {
 }
 
 #speech .screen-bg img {
-  object-position: 32% 18%;
+  object-position: 88% 28%;
+  transform: scale(1.55);
+  transform-origin: 88% 28%;
 }
 
 #swim .screen-bg img {
